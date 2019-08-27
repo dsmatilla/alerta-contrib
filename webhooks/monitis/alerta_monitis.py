@@ -1,7 +1,6 @@
 from alerta.models.alert import Alert
 from alerta.webhooks import WebhookBase
 import json
-import datetime
 
 class MonitisWebhook(WebhookBase):
 
@@ -23,7 +22,7 @@ class MonitisWebhook(WebhookBase):
 
         return Alert(
             resource=context['url'],
-            type=context['type']',
+            type=context['type'],
             event=context['name'].context['adddata'],
             environment=environment,
             severity=severity,
