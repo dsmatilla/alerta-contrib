@@ -8,24 +8,16 @@ class MonitisWebhook(WebhookBase):
 
         context = payload['data']['alert']
 
-        # Load variables from querystring
-        try:
-            environment = query_string['environment']
-        except:
-            environment = 'Monitis'
-        try:
-            severity = query_string['severity']
-        except:
-            severity = 'major'
         if context['alertType'] == 'RECOVERY':
             severity = 'ok'
-
+        else:
+            severity = 'major'
         create_time = parse_date(context['timestamp'])
 
         return Alert(
             resource=context['url'],
             event=context['name'].context['adddata'],
-            environment=environment,
+            environment='Monitis',
             severity=severity,
             service=[context['url']],
             group=context['group'],
