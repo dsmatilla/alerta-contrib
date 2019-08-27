@@ -6,7 +6,7 @@ class MonitisWebhook(WebhookBase):
 
     def incoming(self, query_string, payload):
 
-        context = payload['alert']
+        context = payload['data']['alert']
 
         # Load variables from querystring
         try:
