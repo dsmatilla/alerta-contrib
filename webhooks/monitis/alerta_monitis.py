@@ -5,18 +5,16 @@ import json
 class MonitisWebhook(WebhookBase):
 
     def incoming(self, query_string, payload):
-
-        context = payload['data']['alert']
+        context = payload['alert']
 
         if context['alertType'] == 'RECOVERY':
             severity = 'ok'
         else:
             severity = 'major'
-        create_time = parse_date(context['timestamp'])
 
         return Alert(
             resource=context['url'],
-            event=context['name'].context['adddata'],
+            event=context['name'],
             environment='Monitis',
             severity=severity,
             service=[context['url']],
@@ -27,6 +25,5 @@ class MonitisWebhook(WebhookBase):
             attributes={},
             origin='Monitis',
             type=context['type'],
-            create_time=create_time,
             raw_data=json.dumps(payload, indent=4)
         )
